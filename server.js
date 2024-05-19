@@ -14,35 +14,29 @@ app.use(bodyParser.json());
 const items = [];
 for (var i = 0; i < 100; i++) {
   items.push({
-    key: i,
-    name: `John Brown${i}`,
-    age: i,
-    address: `地址${i}`,
-    title: `标题${i}`,
+    id: `${i + 1}`,
+    key: `${i + 1}`,
+    name: `John Brown${i + 1}`,
+    age: `${i + 1}`,
+    address: `地址${i + 1}`,
+    title: `标题${i + 1}`,
+    status: 1,
+    pubdate: "2024-05-19",
+    read_count: `${i + 1}`,
+    comment_count: `${i + 1}`,
+    like_count: `${i + 1}`,
   });
-}
-
-const items1 = [];
-for (let i = 0; i < 100; i++) {
-  items1.push([
-    `${i + 1}`,
-    `标题${i + 1}`,
-    `作者${i + 1}`,
-    `时间${i + 1}`,
-    `回帖个数${i + 1}`,
-    `回复个数${i + 1}`,
-  ]);
 }
 
 // app.get("/forum/topicsAction/list", (req, res) => {
 //   const { start = 0, limit = 20 } = req.query;
 //   const pageNo = parseInt(start, 20);
 //   res.json({
-//     totalCount: items1.length, // 数据总和
+//     totalCount: items.length, // 数据总和
 //     number: pageNo,
 //     totalPages: Math.ceil(items1.length / limit),
 //     size: limit,
-//     objData: items1.slice(pageNo * limit, (pageNo + 1) * limit),
+//     objData: items.slice(pageNo * limit, (pageNo + 1) * limit),
 //   });
 //   // res.status(401).json({ status: 401 })
 // });
@@ -59,6 +53,72 @@ app.get("/fill/userInfo", (req, res) => {
   res.json({
     data: {
       name: "张三",
+    },
+  });
+});
+
+app.get("/fill/channels", (req, res) => {
+  res.json({
+    data: {
+      channels: [
+        { id: "1", name: "推荐" },
+        { id: "2", name: "发送" },
+        { id: "3", name: "接收" },
+      ],
+    },
+  });
+});
+
+app.post("/fill/mp/articles", (req, res) => {
+  res.json({
+    data: {
+      msg: "发布文章成功",
+    },
+  });
+});
+
+app.post("/fill/edit/articles", (req, res) => {
+  res.json({
+    data: {
+      msg: "发布文章成功",
+    },
+  });
+});
+
+app.get("/fill/articles/detail", (req, res) => {
+  res.json({
+    data: {
+      channel_id: "1",
+      content: "<p>11</p>",
+      title: "标题",
+      type: 1,
+      cover: {
+        type: 1,
+        images: ["url1"],
+      },
+    },
+  });
+});
+
+app.get("/fill/atciles/list", (req, res) => {
+  res.json({
+    data: {
+      results: items,
+      total_count: 100,
+      page: 1,
+      per_page: 10,
+    },
+  });
+});
+
+app.delete("/fill/articles/del", (req, res) => {
+  res.json({
+    data: {
+      channels: [
+        { id: "1", name: "推荐" },
+        { id: "2", name: "发送" },
+        { id: "3", name: "接收" },
+      ],
     },
   });
 });

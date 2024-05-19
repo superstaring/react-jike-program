@@ -1,6 +1,7 @@
 // axios的封装处理
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
 
 const request = axios.create({
   baseURL: "/", // 根域名配置
@@ -29,6 +30,13 @@ request.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    // 监控401 token失效 number
+    if (error.response.status === 401) {
+      removeToken();
+      router.navigate("/login");
+      window.location.reload();
+    }
+
     return Promise.reject(error);
   }
 );
